@@ -1,5 +1,10 @@
 const app = require('express')()
-const port = 3001
+const port = 3000
+
+// const express = require('express');
+// const app = express();
+// app.use(express.static('./to-do/build'));
+
 
 const pg = require("pg")
 const cors = require('cors');

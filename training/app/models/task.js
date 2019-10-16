@@ -16,27 +16,24 @@ module.exports = {
               callback(null, res.rows);
           }
       });
-  }
-
-}
-
-
-function deleteTask(id, callback) {
-    pool.query('DELETE FROM tasks WHERE task_id = $1', [id], function (err, res) {
+  },
+  deleteTask: function (pool, id, callback) {
+      pool.query('DELETE FROM tasks WHERE task_id = $1', [id], function (err, res) {
         if (err) {
             callback(err);
         } else {
             callback(null);
         }
     });
-}
+  },
+  updateTask: function (pool, id, isDone, callback) {
+      pool.query('UPDATE tasks SET is_done = $1 WHERE task_id = $2 RETURNING *;', [isDone, id], function (err, res) {
+          if (err) {
+              callback(err, null);
+          } else {
+              callback(null, res.rows[0]);
+          }
+      });
+  }
 
-function updateTask(id, isDone, callback) {
-    pool.query('UPDATE tasks SET is_done = $1 WHERE task_id = $2 RETURNING *;', [isDone, id], function (err, res) {
-        if (err) {
-            callback(err, null);
-        } else {
-            callback(null, res.rows[0]);
-        }
-    });
 }

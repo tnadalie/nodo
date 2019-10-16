@@ -32,7 +32,7 @@ module.exports = {
    // Deletes a task and return a status code 200
    app.delete('/api/tasks/:id', function (req, res) {
        const id = req.params.id;
-       taskModel.deleteTask(id, function (err) {
+       taskModel.deleteTask(pool, id, function (err) {
            if (err) {
                res.sendStatus(500)
            } else {
@@ -47,7 +47,7 @@ module.exports = {
    app.post('/api/tasks/:id', function (req, res) {
        const id = req.params.id;
        const isDone = req.body.isDone;
-       taskModel.updateTask(id, isDone, function (err, task) {
+       taskModel.updateTask(pool, id, isDone, function (err, task) {
            if (err) {
                res.sendStatus(500)
            } else {
